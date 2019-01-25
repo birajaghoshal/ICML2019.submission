@@ -1,8 +1,4 @@
 import  torch
-if torch.__version__ != '0.3.1':
-	raise RuntimeError('PyTorch version must be 0.3.1')
-
-
 import torch.nn as nn
 from torch.autograd import Variable
 import numpy
