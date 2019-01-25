@@ -17,6 +17,8 @@ Software: pytorch version 0.3.1, python 2.7, cuda 8, ubuntu 16 (stable version) 
 
 Hardware (GPU): Nvidia 1080 and Nvidia TitanXp. Intel based platforms
 
+You will need awk, wget, grep and some more typical unix tools to run the provided examples, for instance.
+
 ## Installation
 
 To install pytorch (in a virtual enviroment) follow the next steps:
@@ -24,22 +26,22 @@ To install pytorch (in a virtual enviroment) follow the next steps:
 Pytorch 0.3.1:
 
    ```
-   virtualenv -p python2.7 0.3.1_cuda8_pytorch
-   source 0.3.1_pytorch/bin/activate
-   pip install  http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27m-linux_x86_64.whl
+   virtualenv -p python2.7 /tmp/0.3.1_cuda8_pytorch
+   source /tmp/0.3.1_cuda8_pytorch/bin/activate
+   pip install  http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl
    ```
 
 Pytorch 0.4.0
 
   ```
-  virtualenv -p python2.7 0.4.0_cuda9.1_pytorch
-  source 0.4.0_cuda9.1_pytorch/bin/activate
-  pip install  https://download.pytorch.org/whl/cu91/torch-0.4.0-cp27-cp27m-linux_x86_64.whl
+  virtualenv -p python2.7 /tmp/0.4.0_cuda9.1_pytorch
+  source /tmp/0.4.0_cuda9.1_pytorch/bin/activate
+  pip install  https://download.pytorch.org/whl/cu91/torch-0.4.0-cp27-cp27mu-linux_x86_64.whl
   ```
 
 ## Dataset
 
-You can download the logits for some experiments from [here](https://drive.google.com/drive/folders/1uJ06kNMDRGcZ-6xjxHYtqwC6ea4eSGcl?usp=sharing). Place the downloaded data in a directory, as example, /tmp/data/
+You can download the logits for some experiments from [here](https://drive.google.com/drive/folders/1uJ06kNMDRGcZ-6xjxHYtqwC6ea4eSGcl?usp=sharing). Place the downloaded data folder with the provided name in a directory, as example, /tmp/data/
 
 ## Experiments
 
