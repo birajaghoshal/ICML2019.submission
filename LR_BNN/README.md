@@ -69,9 +69,6 @@ DSF: factor to scale the DKL (\beta in the paper), as example 0.1
 
 islearnable: if provided this argument makes the parameters of the prior distribution learnables.
 
-##################################
-##################################
-#################################
 
 ## Compute the Predictive Distribution
 
@@ -90,7 +87,7 @@ data_dir: location of your downloaded data.
 
 choosed_dataset: which dataset you want to use, as example, cifar10.
 
-path_to_trained_BNN: absolute path to where the model has been saved (the one created when optimizing the ELBO), as example PONER UN EJEMPLO AQUIIIIII
+path_to_trained_BNN: absolute path to where the model has been saved (the one created when optimizing the ELBO 
 
 validate_or_test: either to perform validation or to run the test. If validation is provided code uses validation set to search for the optimal M value to compute the approximation of the integral of the predictive distribution that get better ECE15. If test is given it runs the test to approximate the integral.
 
