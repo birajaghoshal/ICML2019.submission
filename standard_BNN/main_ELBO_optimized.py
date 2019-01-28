@@ -78,9 +78,9 @@ if __name__=='__main__':
 		input_dim=100
 	elif dataset_name in ['gender','vggface2']:
 		input_dim=2
-	elif dataset_name == 'cars'
+	elif dataset_name == 'cars':
 		input_dim = 196
-	elif dataset_name == 'birds'
+	elif dataset_name == 'birds':
 		input_dim = 200
 	else:
 		raise NotImplemented
