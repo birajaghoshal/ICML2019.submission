@@ -1,6 +1,6 @@
-database='gender'
-modelall=('vgg-19' 'densenet-121')
-inputdim='2'
+database='putdatasethere'
+modelall=('deepmodel1' 'deepmodel2')
+inputdim='dimension'
 
 for model in ${modelall[@]}
 do

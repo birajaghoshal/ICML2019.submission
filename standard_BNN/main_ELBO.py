@@ -26,9 +26,9 @@ from utils import move_gpu, anneal_lr, select_optimizer
 def parse_args():
 	parser = argparse.ArgumentParser(description='Training Variational Distribution for Bayesian Neural Networks in Pytorch Enjoy!')
 	'''String Variables'''
-	parser.add_argument('--model_net', type=str,choices=['densenet-169','densenet-121','wide-resnet-40x10','wide-resnet-16x8','wide-resnet-28x10','resnet-18','resnet-50','resnet-101','vgg-19','resnext-29_8x16','preactresnet-164','preactresnet-18','dpn-92'],required=True,help='which model to train')
+	parser.add_argument('--model_net', type=str,choices=['densenet-169','densenet-121','wide-resnet-40x10','wide-resnet-16x8','wide-resnet-28x10','resnet-18','resnet-50','resnet-101','vgg-19','resnext-29_8x16','preactresnet-164','preactresnet-18','dpn-92','mobilenet','senetB','vgg'],required=True,help='which model to train')
 	parser.add_argument('--data_dir', type=str,required=True,help='where is the data')
-	parser.add_argument('--dataset', type=str,choices=['gender','cifar10','svhn'],required=True,help='dataset to use')
+	parser.add_argument('--dataset', type=str,choices=['gender','cifar10','svhn','cifar100','cars','birds','vggface2'],required=True,help='dataset to use')
 	parser.add_argument('--MC_samples', type=int,required=True,help='Monte Carlo Samples to estimate ELBO')
 	parser.add_argument('--dkl_after_epoch', type=int,required=True,help='use dkl term in ELBO after dkl_after_epochs epochs. Known as warm up see sonderby et al https://arxiv.org/abs/1602.02282')
 	parser.add_argument('--dkl_scale_factor', type=str,required=True,help='scale factor of dkl. $\Beta$ in our paper.')
@@ -75,8 +75,12 @@ if __name__=='__main__':
 		input_dim=10
 	elif dataset_name=='cifar100':
 		input_dim=100
-	elif dataset_name=='gender':
+	elif dataset_name in ['gender','vggface2']:
 		input_dim=2
+	elif dataset_name == 'cars'
+		input_dim = 196
+	elif dataset_name == 'birds'
+		input_dim = 200
 	else:
 		raise NotImplemented
 
@@ -88,21 +92,39 @@ if __name__=='__main__':
 	variatonal = VAE_variational(parameters).cuda()
 
 	topology='_'.join(str(e) for e in top)
-	if dataset_name in ['cifar10','svhn']:
+ 	if dataset_name in ['cifar10','svhn']:
 		topology='10_'+topology+'_10'
 		reconstruction.net=[10]
 		reconstruction.net.extend(top+[10])
+		variatonal.net=[10]
+		variatonal.net.extend(top+[10])
 	elif dataset_name=='cifar100':
 		topology='100_'+topology+'_100'
 		reconstruction.net=[100]
 		reconstruction.net.extend(top+[100])
-	elif dataset_name=='gender':
+		variatonal.net=[100]
+		variatonal.net.extend(top+[100])
+	elif dataset_name in ['gender','vggface2']:
 		topology='2_'+topology+'_2'
 		reconstruction.net=[2]
 		reconstruction.net.extend(top+[2])
+		variatonal.net=[2]
+		variatonal.net.extend(top+[2])
+	elif dataset_name == 'cars':
+		topology='196_'+topology+'_196'
+		reconstruction.net=[196]
+		reconstruction.net.extend(top+[196])
+		variatonal.net=[196]
+		variatonal.net.extend(top+[196])
+	elif dataset_name == 'birds':
+		topology='200_'+topology+'_200'
+		reconstruction.net=[200]
+		reconstruction.net.extend(top+[200])
+		variatonal.net=[200]
+		variatonal.net.extend(top+[200])
 	else:
 		raise NotImplemented
- 
+
 	#annealing and algorithm
 		
 	linear_anneal=False

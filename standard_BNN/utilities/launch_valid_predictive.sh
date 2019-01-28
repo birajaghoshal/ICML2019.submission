@@ -1,7 +1,7 @@
 
-database='gender'
-modelall=( 'vgg-19' 'densenet-121')
-inputdim='2'
+database='putdatasethere'
+modelall=( 'deepmodel1' 'deepmodel2')
+inputdim='dimension'
 
 for model in "${modelall[@]}"
 do
@@ -15,6 +15,8 @@ MC_samples=(30)
 epochs=( 50 110 510 1010)
 topology=(
 "${inputdim}_5_5_${inputdim} 2 5 0.1"
+
+#this will evaluate the models trained with 30 MC with the specified epochs and topologies with two hidden layers of 5 neurons, with DKLscale factor=0.1
 )
 
 

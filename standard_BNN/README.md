@@ -1,7 +1,7 @@
 # BNN without applying Local Reparameterization
 
 
-Here we explain the basic information to replicate the results. Refer to the main (anonymized for the moment) work to check which models you can run under this directory (for instance cars and birds you cannot). Execute python file.py --help for further information (for example on which kind of information or choices can be given to the python parser)
+Here we explain the basic information to replicate the results. Refer to the main (anonymized for the moment) work to check which models you can run under this directory (for instance cars and birds you cannot). Anyway, the code is ready to run any model on any dataset for instance if you want to check the accuracy degradation during training that appears if you want to train models on cars and birds. Execute python file.py --help for further information (for example on which kind of information or choices can be given to the python parser)
 
 ## Material provided
 
@@ -9,17 +9,27 @@ Code for running experiments for BNN
 
 Code for running experiments of Temperature Scaling
 
-Some bash utilities
+Some bash utilities -> under the folder ./utilities/
 
 Two version of code. One is an optimized version of the other
 
-A folder with a particular example that does everything for you: download data, run temperature scaling...
+A folder with a particular example that does everything for you: download data, run temperature scaling... Just go inside this folder and execute ./example.sh
 
 ## Software required
 
 This code is prepared to be used with pytorch version 0.3.1. Activate your virtual enviroment before running any of the files provided.
 
-Use bash instead of dash.
+Use bash instead of dash. This is not a limitation but is preferable if you are going to use the bash scripts provided
+
+## Replicate an example of the paper.
+
+We provide an easy way to replicate one of the experiment of the paper. To do this you do not have to install anything, we do it for you. Just go inside the example folder and execute example.sh. This file will download pytorch, download a set of data, train temperature scaling and train a BNN. It will go slow because it uses the non-optimized version of the code. You have another example in LR_BNN folder which runs faster. You can follow the guidelines from this example to replicate any of the experiments provided. 
+
+Guidelines (assuming you meet the hardware requirements and use linux):
+
+     git clone https://github.com/2019submission/ICML2019.submission.git
+     cd ./ICML2019.submission/standard_BNN/example
+     ./example.sh
 
 ## Baseline Results
 
@@ -37,7 +47,7 @@ data_dir: location of your downloaded data, as example, /tmp/data/
 
 choosed_dataset: which dataset you want to use, as example, cifar10.
 
-T_factor: if provided calibrate test and validation set with the provided value. If not provided the code automatically optimize on validation to search for the T_factor that minimizes cross entropy. This should give you a unique value for T_factor as it is convex optimization.
+T_factor: if provided calibrate test and validation set with the provided value. If not provided the code automatically optimize on validation to search for the T_factor that minimizes cross entropy. This should give you a unique value for T_factor as it is convex optimization problem.
 
 epochs: number of epochs for optimization (only used if T_factor is not provided).
 
@@ -46,7 +56,7 @@ Make any necessary changes in the code if you want to use other optimizer, chang
 
 ## Training Variational Distribution (optimize the ELBO)
 
-We did a set of initial experiments on CIFAR10 and SVHN. However, when we moved to CIFAR100 and due to the complexity of the models we need we optimize the code. The models for ADIENCE, CIFAR10 and SVHN are runned under the "main_ELBO.py" script. The models for CIFAR100 are runned under the "main_ELBO_optimized.py" script. The first one only supports two hidden layers BNNs. Here I put an example using CIFAR100 however the arguments are the same for the other script.
+We did a set of initial experiments on CIFAR10 and SVHN. However, when we moved to CIFAR100 and due to the complexity of the models used for this task, we optimized the code. The models for ADIENCE, CIFAR10 and SVHN are runned under the "main_ELBO.py" script. The models for CIFAR100 are runned under the "main_ELBO_optimized.py" script. The first one only supports two hidden layers BNNs. Here I put an example using CIFAR100 however the arguments are the same for the other script.
 
 
 ```
@@ -66,7 +76,7 @@ DAE: after which epoch we also optimize the DKL (known as warm up). If provide -
 
 DSF: factor to scale the DKL (\beta in the paper), as example 0.1
 
-after_nepochs: after this number of epoch we save a model.
+after_nepochs: after this number of epoch we save a model. 
 
 ldim: dimension of the hidden layers of the Bayesian Neural Network (the likelihood model).
 
@@ -85,12 +95,11 @@ gpu_id: gpu id to use. Just provide the same number as nvidia_smi assigns
 folder_name_provided: name of the folder to save log and experiments, for example 30MC_500epochs. Anyway the main file creates subfolders to further separate the models depending on the DNN model or the database_used. Thus, this folder can be created with specific information on how you estimate the ELBO.
 
 
-\*We did a set of pilot studies with SVHN ADIENCE and CIFAR10. The code used only supports 2-hidden layers. In fact we observed that all the models could be calibrated with this topologies, only varying the number of neurons and thus we perform the rest of experiments with this code. We then realized that for CIFAR100 a refactorization was needed to improve performance. However, using this code alter the way in which the random numbers was generated and thus implied redoing the experiments for CIFAR10, SVHN and ADIENCE. To avoid that we just provide the two versions of code. This unefficient code was done as it was the best way to ensure we where doing things correctly, and avoid bugs that could potentially afect the results of our idea, thus making us reject it. After checking that our idea was correct we improve the code (both for this and BNNLR). In fact the main_ELBO_optimized.py can be use on CIFAR10 SVHN or ADIENCE but could give you different results from the ones reported in our main work.
+\*We did a set of pilot studies with SVHN ADIENCE and CIFAR10. The code used only supports 2-hidden layers. In fact we observed that all the models could be calibrated with this topologies, only varying the number of neurons. Thus we performed the rest of experiments with this code. We then realized that for CIFAR100 a refactorization was needed to improve performance. However, using this code alter the way in which the random numbers were generated and thus implied redoing the experiments for CIFAR10, SVHN and ADIENCE. To avoid that, we just provide the two versions of code. This unefficient code was done as it was the best way to ensure we where doing things correctly, and avoid bugs that could potentially affect the results of our idea, thus making us reject it. After checking that our idea was correct we improve the code (both for this and BNNLR). In fact the main_ELBO_optimized.py can be use on CIFAR10 SVHN or ADIENCE but could give you different results from the ones reported in our main work.
 
 ## Compute the Predictive Distribution
 
-Again depending if you used the optimized version or not here you have to run the main_predictive.py or the main_predictive_inference.py files.
-
+Again depending if you used the optimized version or not here you have to run the main_predictive_inference.py or the main_predictive_inference_optimized.py files.
 
 ```
 python main_predictive_inference.py --model_net [model_net] --data_dir [data_dir] --dataset [choosed_dataset] --model_dir [path_to_trained_BNN] --valid_test [validate_or_test] --MC_samples [MC]
@@ -100,11 +109,11 @@ python main_predictive_inference.py --model_net [model_net] --data_dir [data_dir
 
 model_net: name of the model that computed the logits, as example, densenet-121.
 
-./data/: location of your downloaded data.
+data_idr: location of your downloaded data for instance /tmp/data/
 
 choosed_dataset: which dataset you want to use, as example, cifar10.
 
-path_to_trained_BNN: absolute path to where the model has been saved (the one created when optimizing the ELBO)
+path_to_trained_BNN: absolute path to where the model has been saved (the one created when optimizing the ELBO). 
 
 validate_or_test: either to perform validation or to run the test. If validation is provided code uses validation set to search for the optimal M value to compute the approximation of the integral of the predictive distribution that get better ECE15. If test is given it runs the test to approximate the integral.
 
@@ -120,7 +129,7 @@ We give some bash utilities that can be used to run the experiments. Note that t
 
 launch_train_experiments.sh: used to launch a bunch of experiments on one dataset and different models.
 
-launch_valid_experiments.sh: used to launch experiments on validation. Basically you specify some training parameters: epochs MC_samples topology databases and models and it will do the rest for you. Note that this files expect a specific name for the folders: $dir$t"/"$mc"MC\_"$ep"eps_DKLSF"$dklsf"/", and give a specific name to the file where the results are saved: $dirResult$t"-"$mc"MC\_"$ep"eps\_"$dklsf"DKLSF". The good point is that if you do not alterate these two files (train and valid) the other files will do the rest for you.
+launch_valid_experiments.sh: used to launch experiments on validation. Basically you specify some training parameters: epochs MC_samples topology databases and models and it will do the rest for you. Note that this files expect a specific name for the folders: $dir$t"/"$mc"MC\_"$ep"eps_DKLSF"$dklsf"/", and give a specific name to the file where the results are saved: $dirResult$t"-"$mc"MC\_"$ep"eps\_"$dklsf"DKLSF". The good point is that if you do not alterate these two files (train and valid) the other files will do the rest for you. (parserPredictive and launch_test)
 
 parsePredictive.sh: This files parse the output from launch_valid_experiments.sh and prepares everything to run the test. You only specify the database and the models and it will run the test for all the files created in validation.
 
@@ -128,7 +137,15 @@ launch_test_experiment.sh: This files will take as input the files created by pa
 
 ## Table with parameters of the reported models
 
-The next table shows the configurations used to train each of the variational distributions of the experiments reported in this work. In cifar100 each run of the algorithm must save the model every 100 epochs ( --save_after [after_nepochs] ). The models trained are then used by the validation script. All the models use linear anneal on the last epochs (in the script set --anneal to Linear). To run experiments on ADIENCE pass gender as argument for the database. All these models are trained with KL scale factor set to 0.1 (--dkl_scale_factor in the parser) and without warm-up (dkl_after_epochs set to -1)
+The next table shows the configurations used to train each of the variational distributions of the experiments reported in this work. In cifar100 each run of the algorithm must save the model every 100 epochs ( --save_after [after_nepochs] ). The models trained are then used by the validation script. All the models use linear anneal on the last epochs (in the script set --anneal to Linear). To run experiments on ADIENCE pass gender as argument for choosed_dataset. All these models are trained with KL scale factor set to 0.1 (--dkl_scale_factor in the parser) and without warm-up (dkl_after_epochs set to -1).
+
+Basically save_after means that the model is saved after 100 epochs. This was done because this models were more expensive to train and thus we search for the optimal in validation of the same model during the training process. In main_predictive_inference.py, when you specify the model_dir there is a slight difference if you use --save_model_every or you do not. Assuming that when training the variatonal distribution you choosed MYMODEl as the argument for --folder_name you have to specify directory in the following way. As example assuming you save the model each 50 epochs and you want to evaluate the model on the 750 saved model, in main_predictive_inference, --model_dir should be specified as MYMODEL/750/ . If you do not choose to save the model each 100 just put MYMODEL:
+
+    python main_predictive_inference_optimized.py --model_dir pathtoMYMODEL/MYMODEL/750/  #you set --save_model_every 50 when training the variatonal distribution
+    python main_predictive_inference_optimized.py --model_dir pathtoMYMODEL/MYMODEL/     # you did not set it
+
+
+The next table show training hyperparameters. In this case M for test refers to the optimal M found in validation for that model (we provide it so you can avoid its search although this search is not expensive). Model at Epoch refers to the epoch where the model was saved. For example if we see Model at Epoch 1700 and Epochs 10 2000. This means we have to set --save_model_every 100 (or 50 or any factor from 1700). The code will save a model each 100/50 etc epochs and you have to evaluate performance on the 1700: --model_dir pathtoMYMODEL/MYMODEL/1700/
 
 
 | Database  | Model | BNN Topology | Monte Carlo Samples | Epochs | Learning Rates | M for test |

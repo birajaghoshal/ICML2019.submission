@@ -1,5 +1,5 @@
-database='gender'
-modelall=( 'vgg-19' 'densenet-121')
+database='putdatasethere'
+modelall=( 'deepmodel1' 'deepmodel2')
 
 for model in "${modelall[@]}"
 do

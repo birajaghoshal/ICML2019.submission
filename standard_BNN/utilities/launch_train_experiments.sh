@@ -1,5 +1,5 @@
-dataset='svhn'
-modelall=('densenet-121')
+dataset='putdatasethere'
+modelall=('deepmodel1' 'deepmodel2')
 n_gpu=0
 
 for model in "${modelall[@]}"
