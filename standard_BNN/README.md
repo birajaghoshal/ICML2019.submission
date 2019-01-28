@@ -1,19 +1,19 @@
 # BNN without applying Local Reparameterization
 
 
-Here we explain the basic information to replicate the results. Refer to the main (anonymized for the moment) work to check which models you can run under this directory (for instance cars and birds you cannot). Execute python file.py --help for further information (for example on which kind of information o possibilities the python parser expects)
+Here we explain the basic information to replicate the results. Refer to the main (anonymized for the moment) work to check which models you can run under this directory (for instance cars and birds you cannot). Execute python file.py --help for further information (for example on which kind of information or choices can be given to the python parser)
 
 ## Material provided
 
-code for running experiments for BNN
+Code for running experiments for BNN
 
-code for running experiments of Temperature Scaling
+Code for running experiments of Temperature Scaling
 
-some bash utilities
+Some bash utilities
 
-two version of code. One is an optimized version of the other
+Two version of code. One is an optimized version of the other
 
-a folder with a particular example that does everything for you.
+A folder with a particular example that does everything for you: download data, run temperature scaling...
 
 ## Software required
 
@@ -144,14 +144,14 @@ The next table shows the configurations used to train each of the variational di
 | CIFAR10  | ResNext-29_8x16 |  10-1000-1000-10 | 400 | 20 | 0.001 | 25 |
 | CIFAR10  | WideResNet-40x10 | 10-512-512-10  |  30 | 10   500 |  0.001   0.0001 | 16 |
 | SVHN  | WideResNet-40x10 | 10-128-128-10  |  100  | 110  | 0.001 | 28 | 
-| SVHN  | DenseNet-121 | 10-512-512-10 | 30  | 110 | 0.001  | 31 |
+| SVHN  | DenseNet-121 | 10-512-512-10 | 30  | 50 | 0.001  | 60 |
 | SVHN  | DenseNet-169 | 10-1000-1000-10 | 200  | 110 | 0.001 | 55 |
 | SVHN  | ResNet-50 | 10-512-512-10 | 30  | 10 200 | 0.001 0.0001 | 18 |
 | SVHN  | PreactResNet-164 | 10-512-512-10 | 400  | 110 | 0.001 | 46 | 
 | SVHN  | PreactResNet-18 | 10-512-512-10 | 800  | 15 | 0.001 | 23 |
 | SVHN  | WideResNet-16x8 |10-512-512-10|  200 | 30  | 0.001 | 15 |
 | SVHN  | WideResNet-28x10 | 10-128-128-10 | 200 | 110 | 0.001 | 15 | 
-| ADIENCE | VGG-19 |  2-25-25-2  | 30 | 110 | 0.001 | 21 |
+| ADIENCE | VGG-19 |  2-25-25-2  | 30 | 10 100 | 0.001 0.0001 | 21 |
 | ADIENCE | DenseNet-121 | 2-10-10-2 | 30 | 50 | 0.001 | 227 |
 
 
@@ -160,7 +160,7 @@ The next table shows the configurations used to train each of the variational di
 | CIFAR100  | WideResNet-28x10 | 100-2000-2000-100  |  100  | 10 2000  | 0.001 0.0001 | 1700 | 15 |
 | CIFAR100  | DenseNet-121 | 100-2000-2000-100  |  100  | 10 2000  | 0.001 0.0001 | 1100 | 20 |
 | CIFAR100  | DenseNet-169 | 100-2000-2000-100  |  100  | 10 2000  | 0.001 0.0001 | 1400 | 15 |
-| CIFAR100  | ResNet-101 |  100-6000-6000-100  | 15 | 10 2000 | 0.001 0.0001 | 900 | 15 |
+| CIFAR100  | ResNet-101 |  100-6000-6000-100  | 10 | 10 2000 | 0.001 0.0001 | 900 | 15 |
 | CIFAR100  | VGG-19 |  100-1200-1200-100  |  100  | 10 2000  | 0.001 0.0001 | 100 | 197 |
 | CIFAR100  | PreactResNet-18 |   100-2000-2000-100  |  100  | 10 2000  | 0.001 0.0001 | 2000 | 56 |
 | CIFAR100  | PreactResNet-164 | 100-4500-4500-100 | 30 | 10 3000 | 0.001 0.0001 | 2100 |53 |
