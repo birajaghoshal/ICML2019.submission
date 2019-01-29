@@ -1,11 +1,8 @@
 database='putdatasethere'
-modelall=('deepmodel1' 'deepmodel2')
-inputdim='dimension'
+model='putmodelhere'
+inputdim='inputdimension'
 
-for model in ${modelall[@]}
-do
 dir="./pretrain_models/"$database"/"$model"/"
-
 
 #only for small files if not parse by line
 file_head=`cat "./ParsePredictive"$database$model".txt"  | awk 'BEGIN{}{print $0;exit}'`
@@ -26,10 +23,10 @@ fi
 model_dir=$dir$inputdim"_"$top"_"$inputdim
 
 if [ "$layers" -eq 0 ]; then
-  model_dir=$dir$inputdim"_"$inputdim 
+model_dir=$dir$inputdim"_"$inputdim
 fi
 
-var=`python ./main_predictive_inference.py --model_net $model --data_dir ./data/ --dataset $database --valid_test test --MC_samples $mcvalid --model_dir $model_dir"/"$mcsamplestrain"MC_"$epochs"eps_DKLSF"$dklsf"/" |  awk 'BEGIN{}{print $11","$15","substr($18,1,length($18)-1)}'`
+var=`python ../predictive_estimation.py --model_net $model --data_dir ../data/ --dataset $database --n_gpu 0 --valid_test test --MCsamples $mcvalid --n_layers $layers --layer_dim $neuron --model_dir $model_dir"/"$mcsamplestrain"MC_"$epochs"eps_DKLSF"$dklsf"/models/BNN.pth.tar" |  awk 'BEGIN{}{print $11","$15","substr($18,1,length($18)-1)}'`
 
 read ece _ acc <<< "$var"
 
@@ -38,4 +35,3 @@ echo $neuron","$layers","$mcsamplestrain","$epochs","$dklsf","$ece","$acc","$ece
 
 
 done  <<< "$file"
-done

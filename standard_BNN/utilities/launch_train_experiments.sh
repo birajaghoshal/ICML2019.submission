@@ -4,7 +4,7 @@ n_gpu=0
 
 for model in "${modelall[@]}"
 do
-#training_schemes=( Montecarlo_samples neurons layers training_parameters)
+#training_schemes=( Montecarlo_samples neurons layers training_parameters DKL scale factor)
 training_schemes=(
 #"30 5 2 10_1000 0.001_0.0001 0.1" Separate with _ if you want to perform step learning rate anneal
 "30 512 2 110 0.001 0.1" 

@@ -13,11 +13,11 @@ file=`cat "./ParsePredictive"$database$model".txt"  | awk 'BEGIN{}{if (NR>1){pri
 
 echo $file_head > "TestPredictive"$database$model".txt" 
 IFS=','
-while read neuron capas mcsamplestrain epochs dklsf  null1 null2  ecevalid mcvalid ; do
+while read neuron layers mcsamplestrain epochs dklsf  null1 null2  ecevalid mcvalid ; do
 
-if [ "$capas" -eq 2 ]; then
+if [ "$layers" -eq 2 ]; then
 top=$neuron"_"$neuron
-elif [ "$capas" -eq 3 ]; then
+elif [ "$layers" -eq 3 ]; then
 top=$neuron"_"$neuron"_"$neuron
 else
 top=$neuron
@@ -30,7 +30,7 @@ var=`python ../main_predictive_inference.py --model_net $model --data_dir ./data
 read ece _ acc <<< "$var"
 
 
-echo $neuron","$capas","$mcsamplestrain","$epochs","$dklsf","$ece","$acc","$ecevalid","$mcvalid >> "TestPredictive"$database$model".txt"
+echo $neuron","$layers","$mcsamplestrain","$epochs","$dklsf","$ece","$acc","$ecevalid","$mcvalid >> "TestPredictive"$database$model".txt"
 
 
 done  <<< "$file"

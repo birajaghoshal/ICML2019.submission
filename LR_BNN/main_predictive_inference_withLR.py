@@ -24,19 +24,13 @@ def parse_args():
 	parser = argparse.ArgumentParser(description='Training Variational Distribution for Bayesian Neural Networks Enjoy!')
 	'''String Variables'''
 	parser.add_argument('--model_net', type=str,choices=['senetA','senetB','vgg','mobilenet','densenet-121','densenet-169','dpn-92','preactresnet-18','preactresnet-164','resnet-18','resnet-50','resnet-101','resnext-29_8x16','vgg-19','wide-resnet-28x10','wide-resnet-40x10','wide-resnet-16x8'],required=True,help='which model to train')
-
 	parser.add_argument('--data_dir', type=str,required=True,help='where is the data')
-
 	parser.add_argument('--dataset', type=str,choices=['cifar10','cifar100','svhn','gender','birds','cars','vggface2'],required=True,help='dataset to use')
-
 	parser.add_argument('--n_gpu', type=int,default=0,help='which gpu to use')
-
 	parser.add_argument('--model_dir',type=str,required=True,help='bnn model dir to be loaded')
-
 	parser.add_argument('--valid_test',type=str,choices=['test','valid'],required=True,default='test')
 	parser.add_argument('--layer_dim', type=int,required=True,help='layer dimension')
 	parser.add_argument('--n_layers', type=int,required=True,help='number of layers')
-
 	parser.add_argument('--prior_is_learnable', required=False,action='store_true',help='make the prior learnable')
 	parser.add_argument('--MCsamples',type=int,required=True,help='predictive monte carlo samples')
 	
@@ -88,8 +82,6 @@ if __name__=='__main__':
 	BNN.load_state_dict(params)
 
 	BNN.cuda()
-
-
 
 
 	n_bins=15

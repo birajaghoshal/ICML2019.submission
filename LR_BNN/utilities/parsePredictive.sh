@@ -1,5 +1,5 @@
-database='cifar10'
-model='wide-resnet-40x10'
+database='putdatasethere'
+model='putmodelhere'
 
 dirPredictive="./predictiveResult/"$database"/"$model"/"
 

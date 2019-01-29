@@ -1,6 +1,6 @@
 
-database='putyourdatabasehere'
-model='putyourmodelhere'
+database='putdatasethere'
+model='putdatasethere'
 inputdim='putdimhere'
 
 
