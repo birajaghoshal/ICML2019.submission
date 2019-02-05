@@ -288,7 +288,7 @@ if __name__=='__main__':
 				os.makedirs(model_dir)
 				torch.save(reconstruction,model_dir+'reconstruction')
 				torch.save(variatonal,model_dir+'variatonal') 
-				acc=0
+				acc=1
 			else:
 				acc+=1
 
